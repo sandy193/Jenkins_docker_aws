@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning the repository...'
-                git branch: 'main', url: 'https://github.com/your-repo/your-project.git'
+                git branch: 'main', url: 'https://github.com/sandy193/Jenkins_docker_aws.git'
             }
         }
 
