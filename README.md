@@ -53,3 +53,9 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update -y 
 sudo apt-get install jenkins -y
+
+Sign Into Jenkins console
+http://<EC2_PUBLIC _IP>:8080/
+Get the Administrator password by
+hitting the below command in EC2
+
