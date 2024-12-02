@@ -1,61 +1,34 @@
 pipeline {
-    agent {
-        docker { image 'node:16' } // Use the Node.js Docker image as the build environment
-    }
-    environment {
-        GITHUB_REPO = 'https://github.com/sandy193/Jenkins_docker_aws.git'
-        DOCKER_IMAGE = 'sandydocker19/jenkins_docker_aws'         // Replace with your Docker Hub repo
-    }
+    agent any
+
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repository') {
             steps {
-                // Pull code from GitHub
-                git branch: 'main', url: "${GITHUB_REPO}"
+                echo 'Cloning the repository...'
+                git branch: 'main', url: 'https://github.com/your-repo/your-project.git'
             }
         }
-        stage('Build App') {
-            steps {
-                // Install dependencies and build the application
-                sh 'npm install'
-                sh 'npm run build' // Adjust if your app does not have a build step
-            }
-        }
+
         stage('Build Docker Image') {
             steps {
-                // Build the Docker image
-                sh 'docker build -t ${DOCKER_IMAGE}:latest .'
+                echo 'Building Docker image...'
+                sh 'docker build -t my-app .'
             }
         }
-        stage('Push Docker Image') {
+
+        stage('Run Docker Container') {
             steps {
-                // Log in to Docker Hub and push the image
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', 
-                                  usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push ${DOCKER_IMAGE}:latest'
-                }
-            }
-        }
-        stage('Deploy Docker Container') {
-            steps {
-                // Stop and remove any existing container, then deploy a new one
+                echo 'Running the Docker container...'
                 sh '''
-                docker stop my-app || true
-                docker rm my-app || true
-                docker run -d --name my-app -p 3000:3000 ${DOCKER_IMAGE}:latest
+                docker run -d --name my-app-container -p 8080:80 my-app
                 '''
             }
         }
     }
+
     post {
         always {
-            echo 'Pipeline execution completed!'
-        }
-        success {
-            echo 'Deployment successful!'
-        }
-        failure {
-            echo 'Deployment failed!'
+            echo 'Pipeline execution completed.'
         }
     }
 }
