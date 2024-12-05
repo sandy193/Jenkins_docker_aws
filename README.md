@@ -42,3 +42,10 @@ http://<EC2_PUBLIC _IP>:8080/
 Get the Administrator password by
 hitting the below command in EC2
 
+***Tools***
+
+Source Control: GitLab, GitHub, Unified GitLab.
+Build/CI: Jenkins, Azure DevOps, GitHub Actions.
+Static Analysis: SonarQube, Checkmarx, Veracode.
+Artifact Management: Unified Artifactory, Nexus.
+Orchestration: Ansible, Kubernetes, Terraform
