@@ -49,3 +49,7 @@ Build/CI: Jenkins, Azure DevOps, GitHub Actions.
 Static Analysis: SonarQube, Checkmarx, Veracode.
 Artifact Management: Unified Artifactory, Nexus.
 Orchestration: Ansible, Kubernetes, Terraform
+
+# To check jenkins  is running in which port in ec2 console 
+
+type: **ps -ef | grep jenkins** ( it will display port then you can allow traffic to that port ex. 8080 in SG)
